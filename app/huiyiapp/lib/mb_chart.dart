@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/linePainter.dart';
-import 'package:huiyiapp/mbBtn.dart';
+import 'package:huiyiapp/mb_btn.dart';
 
 class MbChart extends StatelessWidget {
   final double length;

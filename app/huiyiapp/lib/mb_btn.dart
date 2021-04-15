@@ -11,7 +11,7 @@ class MbBtn extends StatelessWidget {
       child: TextButton(
         child: Text(
           text.length >= 4 ? text.substring(0, 4) : text,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           maxLines: 1,
           textAlign: TextAlign.center,
         ),
