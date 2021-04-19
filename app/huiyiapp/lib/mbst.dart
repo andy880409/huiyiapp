@@ -1,5 +1,6 @@
 class Member {
-  String name;
-  int performance; //業績
-  bool lineKind; //左右
+  String name; //公司名
+  String pmId; //安置人身分證
+  String sn; //
+  Member({this.name, this.pmId, this.sn});
 }

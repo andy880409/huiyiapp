@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:huiyiapp/mbst.dart';
 
 class LoginPage extends StatelessWidget {
   final String route = "/loginPage";
+  TextEditingController user = TextEditingController();
+
+  Future login() async {
+    var url = "http://localhost/~andy/HUIYI/check_id.php";
+    var response = await http.post(Uri.parse(url), body: {
+      "id_card": user.text,
+      "api_code": "id_inquire",
+    });
+    var data = json.decode(response.body) as Map<String, dynamic>;
+    print(data);
+    if (data["res_code"] == -1) {
+      print(123);
+    } else if (data["res_code"] == 0) {
+      print(456);
+    } else {
+      List<Member> member = [];
+      var mbst = data["res_data"];
+      for (int i = 0; i < mbst.length; i++) {
+        member.add(Member(
+          name: mbst[i]["name"],
+          pmId: mbst[i]["pm_id"],
+          sn: mbst[i]["sn"],
+        ));
+        print(member[i].sn);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +57,7 @@ class LoginPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 90),
             child: TextField(
+              controller: user,
               autofocus: true,
               decoration: InputDecoration(
                   hintText: "請輸入帳號",
@@ -56,10 +88,11 @@ class LoginPage extends StatelessWidget {
             height: 10,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  padding: EdgeInsets.only(left: 40, right: 10),
                   child: TextField(
                     autofocus: true,
                     decoration: InputDecoration(
@@ -74,14 +107,17 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
+              Image.network("http://localhost/~andy/HUIYI/captcha.php"),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 70),
+                padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
-                    iconSize: 35,
-                    icon: Icon(
-                      Icons.refresh,
-                    )),
-              )
+                  iconSize: 30,
+                  icon: Icon(
+                    Icons.refresh,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
             ],
           ),
           SizedBox(
@@ -94,19 +130,16 @@ class LoginPage extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(13)),
             color: Colors.blue,
             child: MaterialButton(
-              minWidth: 100,
-              height: 42,
-              child: Text(
-                "登入",
-                style: TextStyle(
-                  fontSize: 23,
-                  color: Colors.white,
+                minWidth: 100,
+                height: 42,
+                child: Text(
+                  "登入",
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed("/homePage");
-              },
-            ),
+                onPressed: login),
           ),
         ],
       ),

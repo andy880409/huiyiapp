@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:huiyiapp/mb_chart.dart';
-import 'package:huiyiapp/mb_btn.dart';
+import 'package:huiyiapp/widgets/mb_chart.dart';
+import 'package:huiyiapp/widgets/mb_btn.dart';
 
 class VerticalChartPage extends StatelessWidget {
   final String route = "/verticalPage";
