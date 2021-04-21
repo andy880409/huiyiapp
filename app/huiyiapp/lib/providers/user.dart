@@ -7,7 +7,7 @@ class UserSn {
 
 class User with ChangeNotifier {
   List<UserSn> _sn = [];
-  List<UserSn> get sn {
+  List<UserSn> get getSn {
     return [..._sn];
   }
 
