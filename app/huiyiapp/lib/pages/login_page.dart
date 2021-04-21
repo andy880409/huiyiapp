@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:huiyiapp/mb_chart_data.dart';
+import 'package:huiyiapp/providers/mb_chart_data.dart';
 import 'dart:convert';
-import 'package:huiyiapp/user.dart';
+import 'package:huiyiapp/providers/user.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   final String route = "/loginPage";
@@ -26,14 +27,10 @@ class LoginPage extends StatelessWidget {
     } else if (data["res_code"] == 0) {
       print(456);
     } else {
-      List<UserSn> user = [];
-      var mbst = data["res_data"];
-      for (int i = 0; i < mbst.length; i++) {
-        //把登入會員的資料轉成陣列
-        user.add(UserSn(
-          sn: mbst[i]["sn"],
-        ));
-      }
+      var resData = data["res_data"];
+      Provider.of<User>(context, listen: false).addSn(resData); //把會員編號統整成陣列
+      List<UserSn> user =
+          Provider.of<User>(context, listen: false).sn; //回傳會員編號陣列
       response = await http.post(url, body: {
         //取得立式組織圖
         "sn": user[0].sn,
@@ -41,15 +38,15 @@ class LoginPage extends StatelessWidget {
       });
       data = json.decode(response.body);
       List<MbChartData> mbChartData = [];
-      mbst = data["res_data"];
-      for (int i = 0; i < mbst.length; i++) {
+      resData = data["res_data"];
+      for (int i = 0; i < resData.length; i++) {
         //把安置圖的資料轉成陣列
         mbChartData.add(MbChartData(
-          name: mbst[i]["name"],
-          pmSn: mbst[i]["pm_sn"],
-          sn: mbst[i]["sn"],
-          line: mbst[i]["line"],
-          pmName: mbst[i]["pm_name"],
+          name: resData[i]["name"],
+          pmSn: resData[i]["pm_sn"],
+          sn: resData[i]["sn"],
+          line: resData[i]["line"],
+          pmName: resData[i]["pm_name"],
         ));
       }
       print(data);
@@ -58,7 +55,7 @@ class LoginPage extends StatelessWidget {
         arguments: {
           "allUserData": user,
           "mbChartData": mbChartData,
-          "topSn": mbChartData[0].pmSn
+          "topSn": user[0].sn
         },
       );
     }

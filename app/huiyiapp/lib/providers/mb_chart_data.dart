@@ -16,4 +16,6 @@ class MbChartDatas with ChangeNotifier {
   List<MbChartData> get datas {
     return [..._datas];
   }
+
+  void fetchMbChartData() {}
 }

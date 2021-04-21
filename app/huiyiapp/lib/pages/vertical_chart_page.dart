@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/widgets/mb_chart.dart';
 import 'package:huiyiapp/widgets/mb_btn.dart';
-import 'package:huiyiapp/mb_chart_data.dart';
-import 'package:huiyiapp/user.dart';
+import 'package:huiyiapp/providers/mb_chart_data.dart';
+import 'package:huiyiapp/providers/user.dart';
 
 class VerticalChartPage extends StatelessWidget {
   final String route = "/verticalPage";
@@ -15,7 +15,6 @@ class VerticalChartPage extends StatelessWidget {
     List<UserSn> user = data["allUserData"];
     var sendBackTopSn;
     String topSn = sendBackTopSn ?? data["topSn"];
-    for (int i = 0; i < 6; i++) {}
     return Scaffold(
         drawer: Drawer(),
         appBar: AppBar(),
