@@ -18,8 +18,10 @@ class User with ChangeNotifier {
       user.add(UserSn(
         sn: resData[i]["sn"],
       ));
+      print(user[i].sn);
     }
     _sn = user;
+
     notifyListeners();
   }
 }

@@ -10,11 +10,7 @@ class VerticalChartPage extends StatelessWidget {
   bool isBottomNoData = false;
   @override
   Widget build(BuildContext context) {
-    dynamic data = ModalRoute.of(context).settings.arguments;
-    List<MbChartData> mbChartData = data["mbChartData"];
-    List<UserSn> user = data["allUserData"];
     var sendBackTopSn;
-    String topSn = sendBackTopSn ?? data["topSn"];
     return Scaffold(
         drawer: Drawer(),
         appBar: AppBar(),

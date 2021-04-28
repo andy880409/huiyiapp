@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
     userText.dispose();
   }
 
-  Future login(BuildContext context) async {
+  Future<void> login(BuildContext context) async {
     var url = Uri.parse("http://localhost/~andy/HUIYI/check_id.php");
     var response = await http.post(url, body: {
       //身份驗證
@@ -29,34 +29,8 @@ class LoginPage extends StatelessWidget {
     } else {
       Provider.of<User>(context, listen: false)
           .addSn(data["res_data"]); //把會員編號統整成陣列
-      List<UserSn> user =
-          Provider.of<User>(context, listen: false).getSn; //回傳會員編號陣列
-      response = await http.post(url, body: {
-        //取得立式組織圖
-        "sn": user[0].sn,
-        "api_code": "member_list",
-      });
-      data = json.decode(response.body);
-      List<MbChartData> mbChartData = [];
-      var resData = data["res_data"];
-      for (int i = 0; i < resData.length; i++) {
-        //把安置圖的資料轉成陣列
-        mbChartData.add(MbChartData(
-          name: resData[i]["name"],
-          pmSn: resData[i]["pm_sn"],
-          sn: resData[i]["sn"],
-          line: resData[i]["line"],
-          pmName: resData[i]["pm_name"],
-        ));
-      }
-      print(data);
       Navigator.of(context).pushNamed(
         VerticalChartPage().route,
-        arguments: {
-          "allUserData": user,
-          "mbChartData": mbChartData,
-          "topSn": user[0].sn
-        },
       );
     }
   }
