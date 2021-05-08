@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:huiyiapp/providers/mb_chart_data.dart';
 
 class MbBtn extends StatelessWidget {
-  final text = "依帕爾古";
+  final MbChartData chartData;
+  MbBtn(this.chartData);
+  final text = "台灣匯芯科技有限公司";
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -10,7 +13,9 @@ class MbBtn extends StatelessWidget {
       },
       child: TextButton(
         child: Text(
-          text.length >= 4 ? text.substring(0, 4) : text,
+          chartData.name.length >= 4
+              ? chartData.name.substring(0, 4)
+              : chartData.name,
           style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           maxLines: 1,
           textAlign: TextAlign.center,

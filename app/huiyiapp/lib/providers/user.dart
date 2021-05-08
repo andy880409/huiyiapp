@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 
-class UserSn {
-  String sn; //
-  UserSn({this.sn});
-}
-
 class User with ChangeNotifier {
-  List<UserSn> _sn = [];
-  List<UserSn> get getSn {
+  List<String> _sn = [];
+  List<String> get getSn {
     return [..._sn];
   }
 
   void addSn(dynamic resData) {
-    List<UserSn> user = [];
+    List<String> user = [];
     for (int i = 0; i < resData.length; i++) {
       //把登入會員的資料轉成陣列
-      user.add(UserSn(
-        sn: resData[i]["sn"],
-      ));
-      print(user[i].sn);
+      user.add(
+        resData[i]["sn"],
+      );
+      print(user[i]);
     }
     _sn = user;
 
