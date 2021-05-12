@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:huiyiapp/providers/mb_chart_data.dart';
+import 'package:huiyiapp/providers/bouns.dart';
 import 'dart:convert';
 import 'package:huiyiapp/providers/user.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
@@ -27,8 +27,9 @@ class LoginPage extends StatelessWidget {
     } else if (data["res_code"] == 0) {
       print(456);
     } else {
-      Provider.of<User>(context, listen: false)
-          .addSn(data["res_data"]); //把會員編號統整成陣列
+      Provider.of<UserProvider>(context, listen: false)
+          .addSn(data["res_data"], userText.text); //把會員編號統整成陣列
+      Provider.of<BounsProvider>(context, listen: false).storeId(userText.text);
       Navigator.of(context).pushNamed(
         VerticalChartPage.route,
       );

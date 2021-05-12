@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:huiyiapp/pages/bonus_page.dart';
+import 'package:huiyiapp/providers/bouns.dart';
 import 'package:huiyiapp/providers/mb_chart_data.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
 import 'package:huiyiapp/pages/login_page.dart';
@@ -15,17 +17,21 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: MbChartDatas(),
+          value: MbChartDataProvider(),
         ),
         ChangeNotifierProvider.value(
-          value: User(),
-        )
+          value: UserProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: BounsProvider(),
+        ),
       ],
       child: MaterialApp(
         initialRoute: LoginPage.route,
         routes: {
           VerticalChartPage.route: (context) => VerticalChartPage(),
           LoginPage.route: (context) => LoginPage(),
+          BonusPage.route: (context) => BonusPage(),
         },
       ),
     );

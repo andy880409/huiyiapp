@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LinePainter extends CustomPainter {
+  //線的厚度
   final double thick;
   LinePainter({this.thick});
   @override

@@ -14,11 +14,16 @@ class MbChartData {
       {this.line, this.name, this.pmName, this.pmSn, this.sn, this.isExist});
 }
 
-class MbChartDatas with ChangeNotifier {
+class MbChartDataProvider with ChangeNotifier {
   //有s代表整體操作
   List<MbChartData> _datas = [];
   List<MbChartData> get datas {
     return [..._datas];
+  }
+
+  List<MbChartData> _chartList = [];
+  List<MbChartData> get chartList {
+    return [..._chartList];
   }
 
   Future<void> fetchMbChartData(String sn) async {
@@ -45,7 +50,7 @@ class MbChartDatas with ChangeNotifier {
     notifyListeners();
   }
 
-  List<MbChartData> getChartDatas(String sn) {
+  void getChartDatas(String sn) {
     List<MbChartData> mbDataList = [];
     int counter = 0;
     int gap = 1; //第幾次的間隔 第一次+1+2,第二次+2+3,第三次+3,+4
@@ -62,6 +67,7 @@ class MbChartDatas with ChangeNotifier {
         }
       }
     }
+
     //不能直接傳值過去，兩者會跟著變動，所以用addAll把值加過去
     List<MbChartData> newlist = [];
     newlist.addAll(mbDataList);
@@ -69,29 +75,17 @@ class MbChartDatas with ChangeNotifier {
     for (int i = 0; i < 3; i++) {
       bool _leftNoData = true;
       bool _rightNoData = true;
-      for (int h = 0; h < 7; h++) {
-        print(mbDataList[h].sn);
-      }
-      for (int h = 0; h < 7; h++) {
-        print(newlist[h].sn);
-      }
+
       for (int j = 0; j < 7; j++) {
         if (mbDataList[i].sn == newlist[j].pmSn && newlist[j].line == "左") {
           _leftNoData = false;
 
           mbDataList[i + gap] = newlist[j];
-          print(11111);
         }
       }
-      for (int h = 0; h < 7; h++) {
-        print(mbDataList[h].sn);
-      }
-      for (int h = 0; h < 7; h++) {
-        print(newlist[h].sn);
-      }
+
       if (_leftNoData) {
         mbDataList[i + gap] = MbChartData(isExist: false);
-        //mbDataList[i + gap].isExist = false;
       }
 
       for (int j = 0; j < 7; j++) {
@@ -99,23 +93,16 @@ class MbChartDatas with ChangeNotifier {
           _rightNoData = false;
 
           mbDataList[i + gap + 1] = newlist[j];
-          print(456);
         }
       }
 
       if (_rightNoData) {
         mbDataList[i + gap + 1] = MbChartData(isExist: false);
-        //mbDataList[i + gap + 1].isExist = false;
       }
 
       gap++;
     }
-    // for (int i = 0; i < 7; i++) {
-    //   print(mbDataList[i].isExist);
-    // }
-    // for (int i = 0; i < 7; i++) {
-    //   print(mbDataList[i].sn);
-    // }
-    return mbDataList;
+    _chartList = mbDataList;
+    notifyListeners();
   }
 }

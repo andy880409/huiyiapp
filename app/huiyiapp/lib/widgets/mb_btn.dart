@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/providers/mb_chart_data.dart';
+import 'package:provider/provider.dart';
 
 class MbBtn extends StatelessWidget {
   final MbChartData chartData;
   MbBtn(this.chartData);
-  final text = "台灣匯芯科技有限公司";
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onDoubleTap: () {
-        print("按兩下跑到上面");
+      onDoubleTap: () async {
+        await Provider.of<MbChartDataProvider>(context, listen: false)
+            .fetchMbChartData(chartData.sn)
+            .then((_) =>
+                Provider.of<MbChartDataProvider>(context, listen: false)
+                    .getChartDatas(chartData.sn));
       },
       child: TextButton(
         child: Text(
@@ -21,7 +25,8 @@ class MbBtn extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         onPressed: () {
-          print("會員資料");
+          print(chartData.name);
+          print(chartData.sn);
         },
       ),
     );

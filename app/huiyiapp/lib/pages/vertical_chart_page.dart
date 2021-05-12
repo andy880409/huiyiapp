@@ -3,6 +3,7 @@ import 'package:huiyiapp/widgets/mb_chart.dart';
 import 'package:huiyiapp/providers/mb_chart_data.dart';
 import 'package:huiyiapp/providers/user.dart';
 import 'package:provider/provider.dart';
+import 'package:huiyiapp/widgets/app_drawer.dart';
 
 class VerticalChartPage extends StatefulWidget {
   static const route = "/verticalPage";
@@ -12,7 +13,6 @@ class VerticalChartPage extends StatefulWidget {
 
 class _VerticalChartPageState extends State<VerticalChartPage> {
   List<String> sn;
-  List<MbChartData> chartDatas;
   bool _isInit = true;
   bool _isLoading = false;
   @override
@@ -21,12 +21,12 @@ class _VerticalChartPageState extends State<VerticalChartPage> {
       setState(() {
         _isLoading = true;
       });
-      sn = Provider.of<User>(context, listen: false).getSn;
-      Provider.of<MbChartDatas>(context)
+      sn = Provider.of<UserProvider>(context, listen: false).getSn;
+      Provider.of<MbChartDataProvider>(context)
           .fetchMbChartData(sn[0])
           .then((_) => setState(() {
                 _isLoading = false;
-                chartDatas = Provider.of<MbChartDatas>(context, listen: false)
+                Provider.of<MbChartDataProvider>(context, listen: false)
                     .getChartDatas(sn[0]);
               }));
     }
@@ -36,8 +36,10 @@ class _VerticalChartPageState extends State<VerticalChartPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mbChartDatas = Provider.of<MbChartDataProvider>(context);
+    var chartDatas = mbChartDatas.chartList;
     return Scaffold(
-        drawer: Drawer(),
+        drawer: AppDrawer(),
         appBar: AppBar(),
         body: _isLoading
             ? Center(child: CircularProgressIndicator())
