@@ -50,6 +50,7 @@ flutter:
   assets:
     - images/logo.jpeg
     - images/paid.png
+    - images/welcome.GIF
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,6 +4,7 @@ import 'package:huiyiapp/providers/mb_chart_data.dart';
 import 'package:huiyiapp/providers/user.dart';
 import 'package:provider/provider.dart';
 import 'package:huiyiapp/widgets/app_drawer.dart';
+import 'package:huiyiapp/widgets/vertical_chart_container.dart';
 
 class VerticalChartPage extends StatefulWidget {
   static const route = "/verticalPage";
@@ -28,6 +29,8 @@ class _VerticalChartPageState extends State<VerticalChartPage> {
                 _isLoading = false;
                 Provider.of<MbChartDataProvider>(context, listen: false)
                     .getChartDatas(sn[0]);
+                Provider.of<MbChartDataProvider>(context, listen: false)
+                    .showSingleData(sn[0]);
               }));
     }
     _isInit = false;
@@ -45,9 +48,9 @@ class _VerticalChartPageState extends State<VerticalChartPage> {
             ? Center(child: CircularProgressIndicator())
             : SafeArea(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //每個MbChart有三個值,把分別的三個值傳入
+                    VerticalChartContainer(mbChartDatas.showItem),
                     MbChart(
                       40,
                       2.5,

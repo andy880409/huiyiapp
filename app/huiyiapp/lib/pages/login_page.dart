@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:huiyiapp/providers/bouns.dart';
+import 'package:huiyiapp/providers/bonus.dart';
 import 'dart:convert';
 import 'package:huiyiapp/providers/user.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
@@ -8,19 +8,19 @@ import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   static const route = "/loginPage";
-  TextEditingController userText = TextEditingController();
+  final TextEditingController userText = TextEditingController();
   void dispose() {
     userText.dispose();
   }
 
   Future<void> login(BuildContext context) async {
-    var url = Uri.parse("http://localhost/~andy/HUIYI/check_id.php");
-    var response = await http.post(url, body: {
+    final url = Uri.parse("http://localhost/~andy/HUIYI/check_id.php");
+    final response = await http.post(url, body: {
       //身份驗證
       "id_card": userText.text,
       "api_code": "id_inquire",
     });
-    var data = json.decode(response.body) as Map<String, dynamic>;
+    final data = json.decode(response.body) as Map<String, dynamic>;
     //print(data);
     if (data["res_code"] == -1) {
       print(123);
@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
     } else {
       Provider.of<UserProvider>(context, listen: false)
           .addSn(data["res_data"], userText.text); //把會員編號統整成陣列
-      Provider.of<BounsProvider>(context, listen: false).storeId(userText.text);
+      Provider.of<BonusProvider>(context, listen: false).storeId(userText.text);
       Navigator.of(context).pushNamed(
         VerticalChartPage.route,
       );

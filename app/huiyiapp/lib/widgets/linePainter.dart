@@ -8,7 +8,7 @@ class LinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..strokeWidth = thick
-      ..color = Colors.red;
+      ..color = Colors.blue[600];
     canvas.drawLine(
       //橫
       Offset(0, size.height / 2),

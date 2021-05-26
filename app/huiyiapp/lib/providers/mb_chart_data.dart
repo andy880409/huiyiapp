@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:huiyiapp/widgets/mb_chart.dart';
+
 class MbChartData {
   //單一人的資料
   final String pmSn; //安置會員編號
@@ -24,6 +26,16 @@ class MbChartDataProvider with ChangeNotifier {
   List<MbChartData> _chartList = [];
   List<MbChartData> get chartList {
     return [..._chartList];
+  }
+
+  MbChartData _showItem;
+  MbChartData get showItem {
+    return _showItem;
+  }
+
+  void showSingleData(String sn) {
+    _showItem = _chartList.firstWhere((chartList) => chartList.sn == sn);
+    notifyListeners();
   }
 
   Future<void> fetchMbChartData(String sn) async {
@@ -104,5 +116,11 @@ class MbChartDataProvider with ChangeNotifier {
     }
     _chartList = mbDataList;
     notifyListeners();
+  }
+
+  //找出上層會員，完成回到上一層的功能
+  String findUpperMbSn(String pmSn) {
+    //找到這層pmSn（上層會員編號）等於上層sn（會員編號）的成員，並回傳
+    return _datas.firstWhere((datas) => datas.sn == pmSn).sn;
   }
 }
