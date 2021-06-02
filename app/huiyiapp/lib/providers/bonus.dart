@@ -80,7 +80,7 @@ class BonusProvider with ChangeNotifier {
 
 //利用身分證id獲取會員獎金資料，存取成Map用會員編號取得對應的獎金資料
   Future<void> fetchBonusData() async {
-    final url = Uri.parse("http://192.168.11.12/HUIYI/check_id.php");
+    final url = Uri.parse("http://192.168.11.10/HUIYI/check_id.php");
     final response = await http.post(url, body: {
       "api_code": "get_bonus",
       "id_card": _id,

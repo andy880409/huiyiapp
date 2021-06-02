@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Future<void> login(BuildContext context) async {
-    final url = Uri.parse("http://192.168.11.12/HUIYI/check_id.php");
+    final url = Uri.parse("http://192.168.11.10/HUIYI/check_id.php");
     final response = await http.post(url, body: {
       //身份驗證
       "id_card": userText.text,
@@ -114,7 +114,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Image.network("http://192.168.11.12/HUIYI/captcha.php"),
+                    Image.network("http://192.168.11.10/HUIYI/captcha.php"),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
                       child: IconButton(

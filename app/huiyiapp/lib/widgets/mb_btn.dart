@@ -19,6 +19,10 @@ class MbBtn extends StatelessWidget {
           //先把上層的會員編號抓出來
           await mbChartDataProvider.fetchMbChartData(userSn[0]).then((_) =>
               upperMbSn = mbChartDataProvider.findUpperMbSn(chartData.pmSn));
+          if (upperMbSn == "err") {
+            print("err");
+            return;
+          }
           //再娶上層全部會員資料抓出來
           await mbChartDataProvider
               .fetchMbChartData(upperMbSn)

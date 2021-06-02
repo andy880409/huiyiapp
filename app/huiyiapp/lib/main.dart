@@ -4,8 +4,10 @@ import 'package:huiyiapp/providers/bonus.dart';
 import 'package:huiyiapp/providers/mb_chart_data.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
 import 'package:huiyiapp/pages/login_page.dart';
+import 'package:huiyiapp/providers/product.dart';
 import 'package:provider/provider.dart';
 import 'package:huiyiapp/providers/user.dart';
+import 'package:huiyiapp/pages/products_overview_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,20 +18,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: MbChartDataProvider(),
+        ChangeNotifierProvider(
+          create: (_) => MbChartDataProvider(),
         ),
-        ChangeNotifierProvider.value(
-          value: UserProvider(),
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
         ),
-        ChangeNotifierProvider.value(
-          value: BonusProvider(),
+        ChangeNotifierProvider(
+          create: (_) => BonusProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProductProvider(),
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData(primaryColor: Colors.blue[300]),
+        theme: ThemeData(
+          primaryColor: Colors.blue[600],
+        ),
         initialRoute: LoginPage.route,
         routes: {
+          ProductsOverviewPage.route: (context) => ProductsOverviewPage(),
           VerticalChartPage.route: (context) => VerticalChartPage(),
           LoginPage.route: (context) => LoginPage(),
           BonusPage.route: (context) => BonusPage(),

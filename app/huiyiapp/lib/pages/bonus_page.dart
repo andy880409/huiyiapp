@@ -115,7 +115,7 @@ class _BonusPageState extends State<BonusPage> {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 5,
                         crossAxisCount: 3),
-                    itemBuilder: (context, i) => Container(
+                    itemBuilder: (_, i) => Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),

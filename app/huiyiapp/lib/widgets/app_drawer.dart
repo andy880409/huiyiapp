@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/pages/bonus_page.dart';
+import 'package:huiyiapp/pages/products_overview_page.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -23,7 +24,7 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(
+              Navigator.of(context).pushNamed(
                 VerticalChartPage.route,
               );
             },
@@ -39,11 +40,25 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(
+              Navigator.of(context).pushNamed(
                 BonusPage.route,
               );
             },
           ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.shopping_cart,
+              size: 30,
+            ),
+            title: Text(
+              "購物車",
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              Navigator.of(context).pushNamed(ProductsOverviewPage.route);
+            },
+          )
         ],
       ),
     );

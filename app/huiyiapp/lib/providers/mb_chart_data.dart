@@ -39,7 +39,7 @@ class MbChartDataProvider with ChangeNotifier {
   }
 
   Future<void> fetchMbChartData(String sn) async {
-    final url = Uri.parse("http://192.168.11.12/HUIYI/check_id.php");
+    final url = Uri.parse("http://192.168.11.10/HUIYI/check_id.php");
     final response = await http.post(url, body: {
       "sn": sn,
       "api_code": "member_list",
@@ -121,6 +121,11 @@ class MbChartDataProvider with ChangeNotifier {
   //找出上層會員，完成回到上一層的功能
   String findUpperMbSn(String pmSn) {
     //找到這層pmSn（上層會員編號）等於上層sn（會員編號）的成員，並回傳
-    return _datas.firstWhere((datas) => datas.sn == pmSn).sn;
+    var data =
+        _datas.firstWhere((datas) => datas.sn == pmSn, orElse: () => null);
+    if (data == null) {
+      return "err";
+    }
+    return data.sn;
   }
 }
