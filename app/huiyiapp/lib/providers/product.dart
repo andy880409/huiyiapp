@@ -61,6 +61,10 @@ class ProductProvider with ChangeNotifier {
     return _showOnlyFavorite;
   }
 
+  Product findById(String id) {
+    return _items.firstWhere((product) => product.id == id);
+  }
+
   void showAllOrOnlyFav(bool favState) {
     _showOnlyFavorite = favState;
     notifyListeners();

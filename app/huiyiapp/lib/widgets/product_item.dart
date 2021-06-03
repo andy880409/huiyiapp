@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:huiyiapp/providers/product.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:huiyiapp/pages/product_detail_page.dart';
 
 class ProductItem extends StatelessWidget {
   @override
@@ -15,7 +16,10 @@ class ProductItem extends StatelessWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(ProductDetailPage.route,
+                      arguments: product.id);
+                },
                 child: FadeInImage.memoryNetwork(
                   fit: BoxFit.contain,
                   image: product.imageURL,

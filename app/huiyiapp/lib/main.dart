@@ -8,6 +8,8 @@ import 'package:huiyiapp/providers/product.dart';
 import 'package:provider/provider.dart';
 import 'package:huiyiapp/providers/user.dart';
 import 'package:huiyiapp/pages/products_overview_page.dart';
+import 'package:huiyiapp/pages/product_detail_page.dart';
+import 'package:huiyiapp/pages/cart_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
           VerticalChartPage.route: (context) => VerticalChartPage(),
           LoginPage.route: (context) => LoginPage(),
           BonusPage.route: (context) => BonusPage(),
+          ProductDetailPage.route: (context) => ProductDetailPage(),
+          CartPage.route: (context) => CartPage(),
         },
       ),
     );

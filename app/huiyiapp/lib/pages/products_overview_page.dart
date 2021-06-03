@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/widgets/app_drawer.dart';
-import 'package:huiyiapp/providers/product.dart';
-import 'package:provider/provider.dart';
 import 'package:huiyiapp/widgets/product_grid.dart';
+import 'package:huiyiapp/pages/cart_page.dart';
 
 enum FilterOption {
   All,
@@ -47,7 +46,9 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
                   ]),
           IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(CartPage.route);
+            },
           )
         ],
       ),
