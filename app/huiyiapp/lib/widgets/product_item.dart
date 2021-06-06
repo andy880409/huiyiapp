@@ -17,8 +17,8 @@ class ProductItem extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(ProductDetailPage.route,
-                      arguments: product.id);
+                  Navigator.of(context)
+                      .pushNamed(ProductDetailPage.route, arguments: product);
                 },
                 child: FadeInImage.memoryNetwork(
                   fit: BoxFit.contain,

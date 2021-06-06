@@ -8,11 +8,11 @@ class Product with ChangeNotifier {
   final String imageURL;
   bool isFavorite;
   Product({
-    @required this.id,
-    @required this.title,
-    @required this.description,
-    @required this.price,
-    @required this.imageURL,
+    this.id,
+    this.title,
+    this.description,
+    this.price,
+    this.imageURL,
     this.isFavorite = false,
   });
   void toggleFavoriteState() {

@@ -39,7 +39,7 @@ class MbChartDataProvider with ChangeNotifier {
   }
 
   Future<void> fetchMbChartData(String sn) async {
-    final url = Uri.parse("http://192.168.11.11/HUIYI/check_id.php");
+    final url = Uri.parse("http://192.168.11.9/HUIYI/check_id.php");
     final response = await http.post(url, body: {
       "sn": sn,
       "api_code": "member_list",

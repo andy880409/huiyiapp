@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProductProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => Product())
       ],
       child: MaterialApp(
         theme: ThemeData(
