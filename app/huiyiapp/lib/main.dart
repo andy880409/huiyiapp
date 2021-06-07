@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.blue[600],
+          primaryColor: Colors.white,
         ),
         initialRoute: LoginPage.route,
         routes: {

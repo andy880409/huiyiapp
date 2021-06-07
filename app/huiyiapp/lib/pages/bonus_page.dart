@@ -27,6 +27,7 @@ class _BonusPageState extends State<BonusPage> {
     final bonus = Provider.of<BonusProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.5,
         title: Text("會員獎金查詢"),
       ),
       drawer: AppDrawer(),

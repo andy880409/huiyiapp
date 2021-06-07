@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/widgets/product_detail_bottom_appBar.dart';
-import 'package:provider/provider.dart';
 import 'package:huiyiapp/providers/product.dart';
-import 'package:numberpicker/numberpicker.dart';
+import 'package:huiyiapp/pages/cart_page.dart';
 
 class ProductDetailPage extends StatefulWidget {
   static const route = "/productDetailPage";
@@ -21,6 +20,17 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     //     .findById(productId);
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.5,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartPage.route);
+                },
+              )
+            ],
+          ),
           body: SingleChildScrollView(
             child: ConstrainedBox(
               constraints:
@@ -81,11 +91,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     thickness: 1,
                   ),
                   Padding(
-                    child: Text("商品介紹:"),
+                    child: Text(
+                      "商品介紹:",
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
                     padding: EdgeInsets.only(left: 10),
                   ),
                   Padding(
-                    child: Text(product.description),
+                    child: Text(
+                      product.description,
+                    ),
                     padding: EdgeInsets.only(left: 10),
                   ),
                 ],

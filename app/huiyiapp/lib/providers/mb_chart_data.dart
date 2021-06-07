@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:huiyiapp/widgets/mb_chart.dart';
-
 class MbChartData {
   //單一人的資料
   final String pmSn; //安置會員編號
@@ -39,7 +37,7 @@ class MbChartDataProvider with ChangeNotifier {
   }
 
   Future<void> fetchMbChartData(String sn) async {
-    final url = Uri.parse("http://192.168.11.9/HUIYI/check_id.php");
+    final url = Uri.parse("http://192.168.11.11/HUIYI/check_id.php");
     final response = await http.post(url, body: {
       "sn": sn,
       "api_code": "member_list",

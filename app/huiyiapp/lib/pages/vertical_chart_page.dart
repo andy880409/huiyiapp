@@ -43,7 +43,9 @@ class _VerticalChartPageState extends State<VerticalChartPage> {
     var chartDatas = mbChartDatas.chartList;
     return Scaffold(
         drawer: AppDrawer(),
-        appBar: AppBar(),
+        appBar: AppBar(
+          elevation: 0.5,
+        ),
         body: _isLoading
             ? Center(child: CircularProgressIndicator())
             : SafeArea(

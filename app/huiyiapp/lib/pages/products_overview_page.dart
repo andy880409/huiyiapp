@@ -22,6 +22,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.5,
         actions: [
           PopupMenuButton(
               onSelected: (FilterOption selectValue) {
