@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:huiyiapp/widgets/app_drawer.dart';
 import 'package:huiyiapp/widgets/product_grid.dart';
 import 'package:huiyiapp/pages/cart_page.dart';
+import 'package:huiyiapp/providers/cart.dart';
+import 'package:huiyiapp/widgets/shopping_cart_badge.dart';
+import 'package:provider/provider.dart';
 
 enum FilterOption {
   All,
@@ -45,11 +48,15 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
                       value: FilterOption.Favorite,
                     )
                   ]),
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.of(context).pushNamed(CartPage.route);
-            },
+          Consumer<CartProvider>(
+            builder: (_, cart, child) => ShoppingCartBadge(
+                value: cart.itemAmount.toString(), widget: child),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartPage.route);
+              },
+            ),
           )
         ],
       ),

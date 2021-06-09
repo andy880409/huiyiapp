@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:huiyiapp/widgets/product_detail_bottom_appBar.dart';
 import 'package:huiyiapp/providers/product.dart';
 import 'package:huiyiapp/pages/cart_page.dart';
+import 'package:provider/provider.dart';
+import 'package:huiyiapp/widgets/shopping_cart_badge.dart';
+import 'package:huiyiapp/providers/cart.dart';
 
 class ProductDetailPage extends StatefulWidget {
   static const route = "/productDetailPage";
@@ -23,88 +26,85 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           appBar: AppBar(
             elevation: 0.5,
             actions: [
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(CartPage.route);
-                },
-              )
+              Consumer<CartProvider>(
+                builder: (_, cart, child) => ShoppingCartBadge(
+                    value: cart.itemAmount.toString(), widget: child),
+                child: IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(CartPage.route);
+                  },
+                ),
+              ),
             ],
           ),
           body: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints:
-                  BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Image.network(
-                      product.imageURL,
-                      height: 300,
-                      fit: BoxFit.contain,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Image.network(
+                    product.imageURL,
+                    height: 300,
+                    fit: BoxFit.contain,
                   ),
-                  Divider(
-                    thickness: 1,
+                ),
+                Divider(
+                  thickness: 1,
+                ),
+                Padding(
+                  child: Text(
+                    product.title,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Padding(
-                    child: Text(
-                      product.title,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    padding: EdgeInsets.only(left: 10),
-                  ),
-                  Padding(
-                    child: Row(
-                      children: [
-                        Text(
-                          "\$" + product.price.toString(),
-                          style: TextStyle(color: Colors.red, fontSize: 20),
+                  padding: EdgeInsets.only(left: 10),
+                ),
+                Padding(
+                  child: Row(
+                    children: [
+                      Text(
+                        "\$" + product.price.toString(),
+                        style: TextStyle(color: Colors.red, fontSize: 20),
+                      ),
+                      Spacer(),
+                      Text(
+                        "已售出:999",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          product.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color:
+                              product.isFavorite ? Colors.red : Colors.black26,
                         ),
-                        Spacer(),
-                        Text(
-                          "已售出:999",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            product.isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: product.isFavorite
-                                ? Colors.red
-                                : Colors.black26,
-                          ),
-                          onPressed: () {
-                            setState(() {});
-                            product.toggleFavoriteState();
-                          },
-                        ),
-                      ],
-                    ),
-                    padding: EdgeInsets.only(left: 10),
+                        onPressed: () {
+                          setState(() {});
+                          product.toggleFavoriteState();
+                        },
+                      ),
+                    ],
                   ),
-                  Divider(
-                    thickness: 1,
+                  padding: EdgeInsets.only(left: 10),
+                ),
+                Divider(
+                  thickness: 1,
+                ),
+                Padding(
+                  child: Text(
+                    "商品介紹:",
+                    style: TextStyle(fontWeight: FontWeight.w700),
                   ),
-                  Padding(
-                    child: Text(
-                      "商品介紹:",
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: 10),
+                ),
+                Padding(
+                  child: Text(
+                    product.description,
                   ),
-                  Padding(
-                    child: Text(
-                      product.description,
-                    ),
-                    padding: EdgeInsets.only(left: 10),
-                  ),
-                ],
-              ),
+                  padding: EdgeInsets.only(left: 10),
+                ),
+              ],
             ),
           ),
           bottomNavigationBar: ProductDetailBottomAppBar(product)),

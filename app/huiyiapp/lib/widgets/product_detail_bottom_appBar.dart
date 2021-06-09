@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:huiyiapp/pages/order_page.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:huiyiapp/providers/product.dart';
+import 'package:huiyiapp/pages/cart_page.dart';
+import 'package:provider/provider.dart';
+import 'package:huiyiapp/providers/cart.dart';
 
 class ProductDetailBottomAppBar extends StatelessWidget {
   final Product product;
   ProductDetailBottomAppBar(this.product);
-  int _currentValue = 1;
+  int _currentValue;
   int _surplusProduct = 100;
   //顯示底部跳出的視窗
-  void _showSheet(BuildContext context, Color color, String text) {
+  void _showSheet(
+      BuildContext context, Color color, String text, bool directPurchase) {
+    final cart = Provider.of<CartProvider>(context, listen: false);
+    _currentValue = 1;
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -80,7 +87,17 @@ class ProductDetailBottomAppBar extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         onPressed: () {
-                          print(123);
+                          cart.addCartItem(
+                            productId: product.id,
+                            title: product.title,
+                            price: product.price,
+                            quantity: _currentValue,
+                            imageURL: product.imageURL,
+                          );
+                          Navigator.of(context).pop();
+                          if (directPurchase == true) {
+                            Navigator.of(context).pushNamed(OrderPage.route);
+                          }
                         }),
                   ),
                 ],
@@ -99,7 +116,7 @@ class ProductDetailBottomAppBar extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () => _showSheet(context, Colors.blue, "加入購物車"),
+              onPressed: () => _showSheet(context, Colors.blue, "加入購物車", false),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -115,7 +132,7 @@ class ProductDetailBottomAppBar extends StatelessWidget {
           Expanded(
             child: TextButton(
               style: TextButton.styleFrom(backgroundColor: Colors.red),
-              onPressed: () => _showSheet(context, Colors.red, "直接購買"),
+              onPressed: () => _showSheet(context, Colors.red, "直接購買", true),
               child: Text(
                 "直接購買",
                 style: TextStyle(

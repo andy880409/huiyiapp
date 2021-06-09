@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huiyiapp/pages/bonus_page.dart';
 import 'package:huiyiapp/providers/bonus.dart';
+import 'package:huiyiapp/providers/cart.dart';
 import 'package:huiyiapp/providers/mb_chart_data.dart';
 import 'package:huiyiapp/pages/vertical_chart_page.dart';
 import 'package:huiyiapp/pages/login_page.dart';
@@ -10,6 +11,7 @@ import 'package:huiyiapp/providers/user.dart';
 import 'package:huiyiapp/pages/products_overview_page.dart';
 import 'package:huiyiapp/pages/product_detail_page.dart';
 import 'package:huiyiapp/pages/cart_page.dart';
+import 'package:huiyiapp/pages/order_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,20 +34,27 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProductProvider(),
         ),
-        ChangeNotifierProvider(create: (_) => Product())
+        ChangeNotifierProvider(
+          create: (_) => Product(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Colors.white,
+          primaryColor: Colors.blueAccent,
         ),
         initialRoute: LoginPage.route,
         routes: {
-          ProductsOverviewPage.route: (context) => ProductsOverviewPage(),
-          VerticalChartPage.route: (context) => VerticalChartPage(),
-          LoginPage.route: (context) => LoginPage(),
-          BonusPage.route: (context) => BonusPage(),
-          ProductDetailPage.route: (context) => ProductDetailPage(),
-          CartPage.route: (context) => CartPage(),
+          ProductsOverviewPage.route: (_) => ProductsOverviewPage(),
+          VerticalChartPage.route: (_) => VerticalChartPage(),
+          LoginPage.route: (_) => LoginPage(),
+          BonusPage.route: (_) => BonusPage(),
+          ProductDetailPage.route: (_) => ProductDetailPage(),
+          CartPage.route: (_) => CartPage(),
+          OrderPage.route: (_) => OrderPage(),
         },
       ),
     );

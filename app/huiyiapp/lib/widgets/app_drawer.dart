@@ -48,11 +48,11 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(
-              Icons.shopping_cart,
+              Icons.shopping_basket,
               size: 30,
             ),
             title: Text(
-              "購物車",
+              "商城",
               style: TextStyle(fontSize: 20),
             ),
             onTap: () {
